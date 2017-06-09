@@ -19,14 +19,16 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.requirements = 'pandoc, v1.19.1'
   spec.post_install_message = 'O limarka depende de uma versão nova do pandoc (v1.19.1 ou superior) que ainda não está disponível nos repositórios de muitas distribuições. Será necessário instalar a nova versão manualmente: https://github.com/abntex/limarka/issues/138'
-  
+
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 11.0"
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "github_changelog_generator"
-  
+  spec.add_development_dependency "cucumber"
+  spec.add_development_dependency "aruba"
+
   spec.add_dependency "clipboard"
   spec.add_dependency "ffi"
   spec.add_dependency "colorize"
@@ -36,5 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bibtex-ruby'
   spec.add_dependency 'terminal-table'
   spec.add_dependency 'pandoc_abnt'
-end
 
+end
