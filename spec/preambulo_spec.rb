@@ -35,7 +35,7 @@ TEXTO
       @cv.compila
     end
     
-    it "gera o texto de projeto", :area_de_concentracao, :linha_de_pesquisa, :wip do
+    it "gera o texto de projeto", :area_de_concentracao, :linha_de_pesquisa do
         expect(File).to exist(@cv.pdf_file)
         expect(@cv.txt).to include("Projeto")
     end
@@ -53,7 +53,7 @@ TEXTO
       @cv.compila
     end
     
-    it "gera o texto de trabalho final", :area_de_concentracao, :linha_de_pesquisa, :wip do
+    it "gera o texto de trabalho final", :area_de_concentracao, :linha_de_pesquisa do
         expect(File).to exist(@cv.pdf_file)
         expect(@cv.txt).not_to include("Projeto")
     end
