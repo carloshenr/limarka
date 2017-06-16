@@ -6,7 +6,7 @@ require 'open3'
 
 describe 'Preambulo', :projeto do
   
-  let!(:options) {{output_dir: output_dir, templates_dir: modelo_dirs}}
+  let!(:options) {{output_dir: output_dir, templates_dir: modelo_dir}}
   let(:tex_file) {Limarka::Conversor.tex_file(t.configuracao)}
   let (:t) {Limarka::Trabalho.new(configuracao: configuracao_padrao.merge(configuracao_especifica), texto: texto)}
   let (:texto) {<<-TEXTO
@@ -25,7 +25,7 @@ TEXTO
   end
 
   context 'quando configurado como projeto ',  :compilacao, :lento,  :folha_aprovacao => 'ativada'  do
-    let (:output_dir) {"tmp/preambulo/projeto"}
+    let (:output_dir) {File.absolute_path "tmp/preambulo/projeto"}
     let (:configuracao_especifica) {{"projeto" => true}}
 
 
@@ -35,7 +35,7 @@ TEXTO
       @cv.compila
     end
     
-    it "gera o texto de projeto", :area_de_concentracao, :linha_de_pesquisa do
+    it "gera o texto de projeto", :area_de_concentracao, :linha_de_pesquisa, :wip do
         expect(File).to exist(@cv.pdf_file)
         expect(@cv.txt).to include("Projeto")
     end
@@ -44,7 +44,7 @@ TEXTO
 
 
   context 'quando configurado como trabalho final ',  :compilacao, :lento,  :folha_aprovacao => 'ativada'  do
-    let (:output_dir) {"tmp/preambulo/trabalho-final"}
+    let (:output_dir) {File.absolute_path "tmp/preambulo/trabalho-final"}
     let (:configuracao_especifica) {{"projeto" => false}}
 
     before do
@@ -53,7 +53,7 @@ TEXTO
       @cv.compila
     end
     
-    it "gera o texto de trabalho final", :area_de_concentracao, :linha_de_pesquisa do
+    it "gera o texto de trabalho final", :area_de_concentracao, :linha_de_pesquisa, :wip do
         expect(File).to exist(@cv.pdf_file)
         expect(@cv.txt).not_to include("Projeto")
     end

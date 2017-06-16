@@ -19,7 +19,7 @@ TEXTO
   before do
     FileUtils.rm_rf output_dir
     FileUtils.mkdir_p output_dir
-    FileUtils.cp_r "#{modelo_dir}",output_dir
+    FileUtils.cp_r "#{modelo_dir}/.",output_dir
   end
 
   context 'quando configurada como desativada' do
@@ -43,7 +43,7 @@ TEXTO
 
   end
 
-  context 'quando configurada para ser gerada', :wip do
+  context 'quando configurada para ser gerada' do
     let (:output_dir) {File.absolute_path "tmp/errata/ativada"}
     let (:t) {Limarka::Trabalho.new(errata: errata)}
 
@@ -55,8 +55,10 @@ TEXTO
     end
     
     it 'a seção de errata foi criada' do
-      expect(@cv.texto_tex).to include("\\begin{errata}")
-      expect(@cv.texto_tex).to include("\\end{errata}")
+      Dir.chdir output_dir do
+        expect(@cv.texto_tex).to include("\\begin{errata}")
+        expect(@cv.texto_tex).to include("\\end{errata}")
+      end
     end
     it 'a errata foi incluída no arquivo' do
       expect(@cv.texto_tex).to include("A aranha arranha a rã.")
